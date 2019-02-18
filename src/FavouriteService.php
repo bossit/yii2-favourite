@@ -22,6 +22,21 @@ class FavouriteService extends Component implements FavouriteInterface
         }
     }
     
+
+    /**
+     * Get favourite items.
+     *
+     * @return array|null
+     */
+    public function getItems() : ?array
+    {
+        if (!$this->hasCookie()) {
+            return null;
+        }
+
+        return json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME));
+    }
+
     /**
      * @return bool
      */
