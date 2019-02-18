@@ -21,7 +21,36 @@ class FavouriteService extends Component implements FavouriteInterface
             ]));
         }
     }
-    
+
+    /**
+     * Add item to favourite.
+     *
+     * @param int $itemId
+     *
+     * @return bool
+     */
+    public function add(int $itemId) : bool
+    {
+        if (!$this->hasCookie()) {
+            return false;
+        }
+
+        $items = $this->getItems();
+        if (in_array($itemId, $items, true)) {
+            return true;
+        }
+
+        $items[] = $itemId;
+
+        \Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name'   => static::COOKIE_NAME,
+            'value'  => json_encode($items),
+            'expire' => time() + $this->lifetime
+        ]));
+
+        return true;
+    }
+
 
     /**
      * Get favourite items.
