@@ -51,6 +51,27 @@ class FavouriteService extends Component implements FavouriteInterface
         return true;
     }
 
+    /**
+     * Remove item from favourite.
+     *
+     * @param int $itemId
+     *
+     * @return bool
+     */
+    public function remove(int $itemId) : bool
+    {
+        if ($this->hasItem($itemId) && ($key = array_search($itemId, $this->_items, true)) !== false) {
+            unset($this->_items[$key]);
+
+            \Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name'   => static::COOKIE_NAME,
+                'value'  => json_encode($this->_items),
+                'expire' => time() + $this->lifetime
+            ]));
+        }
+
+        return true;
+    }
 
     /**
      * Get favourite items.
