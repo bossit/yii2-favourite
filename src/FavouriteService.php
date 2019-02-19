@@ -9,6 +9,9 @@ class FavouriteService extends Component implements FavouriteInterface
     /** @var int */
     public $lifetime = 31536000; // 1 year
 
+    /** @var array */
+    private $_items = [];
+
     public function init()
     {
         parent::init();
@@ -16,9 +19,11 @@ class FavouriteService extends Component implements FavouriteInterface
         if (!$this->hasCookie()) {
             \Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name'   => static::COOKIE_NAME,
-                'value'  => json_encode([]),
+                'value'  => json_encode($this->_items),
                 'expire' => time() + $this->lifetime
             ]));
+        } else {
+            $this->_items = json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME));
         }
     }
 
@@ -31,20 +36,14 @@ class FavouriteService extends Component implements FavouriteInterface
      */
     public function add(int $itemId) : bool
     {
-        if (!$this->hasCookie()) {
-            return false;
-        }
-
-        $items = $this->getItems();
-        if (in_array($itemId, $items, true)) {
+        if ($this->hasItem($itemId)) {
             return true;
         }
 
-        $items[] = $itemId;
-
+        $this->_items[] = $itemId;
         \Yii::$app->response->cookies->add(new \yii\web\Cookie([
             'name'   => static::COOKIE_NAME,
-            'value'  => json_encode($items),
+            'value'  => json_encode($this->_items),
             'expire' => time() + $this->lifetime
         ]));
 
@@ -76,15 +75,23 @@ class FavouriteService extends Component implements FavouriteInterface
     /**
      * Get favourite items.
      *
-     * @return array|null
+     * @return array
      */
-    public function getItems() : ?array
+    public function getItems() : array
     {
-        if (!$this->hasCookie()) {
-            return null;
-        }
+        return $this->_items;
+    }
 
-        return json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME));
+    /**
+     * Return true if item has in favourite.
+     *
+     * @param int $itemId
+     *
+     * @return bool
+     */
+    public function hasItem(int $itemId) : bool
+    {
+        return !empty($this->hasCookie()) && in_array($itemId, $this->_items, true);
     }
 
     /**

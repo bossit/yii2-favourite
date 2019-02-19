@@ -20,7 +20,6 @@ interface FavouriteInterface
      */
     public function add(int $itemId) : bool;
 
-
     /**
      * Remove item from favourite.
      *
@@ -30,11 +29,19 @@ interface FavouriteInterface
      */
     public function remove(int $itemId) : bool;
 
-
     /**
      * Get favourite items.
      *
-     * @return array|null
+     * @return array
      */
-    public function getItems() : ?array;
+    public function getItems() : array;
+
+    /**
+     * Return true if item has in favourite.
+     *
+     * @param int $itemId
+     *
+     * @return bool
+     */
+    public function hasItem(int $itemId) : bool;
 }
