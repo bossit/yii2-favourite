@@ -23,7 +23,7 @@ class FavouriteService extends Component implements FavouriteInterface
                 'expire' => time() + $this->lifetime
             ]));
         } else {
-            $this->_items = json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME));
+            $this->_items = json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME), true);
         }
     }
 
