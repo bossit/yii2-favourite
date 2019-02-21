@@ -18,7 +18,8 @@ The preferred way is to setup the components into our Application's configuratio
 'components' => [
     'favourite' => [
         'class'    => \bossit\logger\FavouriteService::class,
-        'lifetime' => 31536000
+        'lifetime' => 31536000,
+        'cookieName' => 'favourite'
     ],
 ],
 ```
