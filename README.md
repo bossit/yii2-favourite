@@ -2,7 +2,9 @@
 
 Favourite component for Yii2.
 
+[![Latest Stable Version](https://poser.pugx.org/bossit/yii2-favourite/v/stable)](https://packagist.org/packages/bossit/yii2-favourite)
 [![Build Status](https://travis-ci.org/bossit/yii2-favourite.svg?branch=master)](https://travis-ci.org/bossit/yii2-favourite)
+[![Total Downloads](https://poser.pugx.org/bossit/yii2-favourite/downloads)](https://packagist.org/packages/bossit/yii2-favourite)
 
 ## Install
 
