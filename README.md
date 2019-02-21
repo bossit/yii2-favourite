@@ -2,6 +2,8 @@
 
 Favourite component for Yii2.
 
+[![Build Status](https://travis-ci.org/bossit/yii2-favourite.svg?branch=master)](https://travis-ci.org/bossit/yii2-favourite)
+
 ## Install
 
 The preferred way to install this component is through [composer](https://getcomposer.org/download/).
