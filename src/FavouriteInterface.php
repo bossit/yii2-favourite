@@ -9,8 +9,6 @@ namespace bossit\favourite;
  */
 interface FavouriteInterface
 {
-    public const COOKIE_NAME = 'yii2-favourite';
-
     /**
      * Add item to favourite.
      *
