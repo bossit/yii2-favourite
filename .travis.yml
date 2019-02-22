@@ -1,3 +1,7 @@
+env:
+  global:
+    secure: HKgiABGctYIRJuiqt4nmG3Qkw1r7r5JTpUK5BPzlKocO1T8HFLHhO2PtxIdsk8KmjXtgKwhzcwv9SfAcFrPrLEpCfXjuHYnKsnOA731LJjPfLfh6N7wenXinFke9tijnm/8Mt5Gqi7eY/jCjpC7eA31z3F2nQZYCG2PojYrlwIjCkDsEWTMc0lg8kH4MFNoSSmRbLheEocjghRfzt0pUyZAwjiGKe/3I/H39EJIrekRgxBwIOD+7U+H93H86HKc+dUGHe0dr6pHWFIFqQAcN4i+a4NfCzk+P5zIylvZq6myHXQ1+Jtw2B6TbdwX/QsKci6cA/pMbIsSnLxze2LhvyurhGd2hHdHcyVy7L0HwJyFioJHeqNDBAGL3He9rGAOTz/9pFVKHgYqbh3HsuUrTcM+oZv2tp9cSzycnIKmgwNeSRZ6I71Hh1kQYkHrdIEFz5BBiSvc9j98/q8yxj7json/yibGQF7L0WMEKbvsiE1yxRwNckUp8krwgqFJ0PFjmju2hUY3EMx2s4P2MnpQK0drC7Wk+WYYva+mqm+xc5HWAljgAfB+o7WthrzRkMXOtsZ5d6cEBB5UMPyoBRmOEpE4NdtWg3y4/qAg1oTNuJ3/pcQS26mHPOHZ7LVWojn8OQorwpIzK5knbb3pgFnLcSN5oJqySZbPDE6x9Wzbk6PU=
+
 language: php
 
 php:
@@ -8,6 +12,9 @@ sudo: false
 cache:
   directories:
     - "$HOME/.composer/cache"
+
+before_install:
+  - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
 
 install:
   - travis_retry composer self-update
