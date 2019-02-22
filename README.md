@@ -29,3 +29,16 @@ The preferred way is to setup the components into our Application's configuratio
 ```
 
 That's it, you are ready to use it as Yii2 components.
+
+
+##### Examples:
+```php
+// add to favourite
+\Yii::$app->favourite->add($productId);
+
+// remove from favourite
+\Yii::$app->favourite->remove($productId);
+
+// get items of favourite
+\Yii::$app->favourite->getItems();
+```
