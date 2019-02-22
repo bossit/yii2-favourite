@@ -6,8 +6,11 @@ use yii\base\Component;
 
 class FavouriteService extends Component implements FavouriteInterface
 {
-    /** @var int */
-    public $lifetime = 31536000; // 1 year
+    /** @var int Cookie lifetime (1 year by default) */
+    public $lifetime = 31536000;
+
+    /** @var string Cookie name */
+    public $cookieName = 'yii2-favourite';
 
     /** @var array */
     private $_items = [];
@@ -18,12 +21,12 @@ class FavouriteService extends Component implements FavouriteInterface
 
         if (!$this->hasCookie()) {
             \Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                'name'   => static::COOKIE_NAME,
+                'name'   => $this->cookieName,
                 'value'  => json_encode($this->_items),
                 'expire' => time() + $this->lifetime
             ]));
         } else {
-            $this->_items = json_decode(\Yii::$app->request->cookies->getValue(static::COOKIE_NAME), true);
+            $this->_items = json_decode(\Yii::$app->request->cookies->getValue($this->cookieName), true);
         }
     }
 
@@ -42,7 +45,7 @@ class FavouriteService extends Component implements FavouriteInterface
 
         $this->_items[] = $itemId;
         \Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name'   => static::COOKIE_NAME,
+            'name'   => $this->cookieName,
             'value'  => json_encode($this->_items),
             'expire' => time() + $this->lifetime
         ]));
@@ -63,7 +66,7 @@ class FavouriteService extends Component implements FavouriteInterface
             unset($this->_items[$key]);
 
             \Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                'name'   => static::COOKIE_NAME,
+                'name'   => $this->cookieName,
                 'value'  => json_encode($this->_items),
                 'expire' => time() + $this->lifetime
             ]));
@@ -99,6 +102,6 @@ class FavouriteService extends Component implements FavouriteInterface
      */
     protected function hasCookie() : bool
     {
-        return \Yii::$app->request->cookies->has(static::COOKIE_NAME);
+        return \Yii::$app->request->cookies->has($this->cookieName);
     }
 }
